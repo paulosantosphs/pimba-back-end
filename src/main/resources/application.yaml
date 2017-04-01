@@ -1,0 +1,33 @@
+spring:
+  datasource:
+       url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/pimba?autoReconnect=true&useSSL=false}
+       username: ${DATASOURCE_USERNAME:root}
+       password: ${DATASOURCE_PASSWORD:1234}
+       driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    database: MYSQL
+    generate-ddl: true
+    ddl-auto: update
+
+login:
+  facebook:
+    app-id: 240904326376282
+    app-secret: caa164498772b2e9804ae41e44142d3f
+  token:
+    header: Access-Token
+    secret: shhhhhhh!!!!
+    expiration: 604800
+  route:
+    authentication:
+      base: auth
+      signIn: login
+      commonRegister: common
+      customerRegister: customer
+      refresh: refresh
+      currentUser: me
+      facebook:
+        commonLogin: commonFacebook
+        customerLogin: customerFacebook
+
+
+

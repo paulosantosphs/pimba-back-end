@@ -1,4 +1,4 @@
-## Projeto 4 back-end projeto principal
+## Pimba back-end projeto principal
 Webservice para aplicação mobile e aplicação web
 
 ### Boas práticas de projeto
