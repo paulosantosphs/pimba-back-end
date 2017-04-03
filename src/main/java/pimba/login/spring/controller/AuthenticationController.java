@@ -73,4 +73,5 @@ public class AuthenticationController {
         // Return the token
         return ResponseEntity.ok().header(tokenHeader, token).body(new AuthenticationResponse(token));
     }
+
 }

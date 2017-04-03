@@ -8,7 +8,8 @@ spring:
     database: MYSQL
     generate-ddl: true
     ddl-auto: update
-
+park:
+  base: park
 login:
   facebook:
     app-id: 240904326376282

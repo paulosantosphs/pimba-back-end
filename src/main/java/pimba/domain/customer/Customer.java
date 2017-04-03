@@ -33,6 +33,10 @@ public class Customer extends EntityWithTimestamps {
         this.parks = parks;
     }
 
+    public Customer() {
+        super();
+    }
+
     public User getUser() {
         return user;
     }
