@@ -39,6 +39,10 @@ public class Park extends EntityWithTimestamps {
         this.customer = customer;
     }
 
+    public Park() {
+        super();
+    }
+
     public Integer getId() {
         return id;
     }
