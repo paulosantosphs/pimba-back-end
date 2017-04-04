@@ -28,3 +28,5 @@ mvnw
 
 application-development.properties
 application-development.yaml
+
+*.save
