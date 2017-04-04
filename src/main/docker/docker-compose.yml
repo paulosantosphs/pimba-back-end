@@ -3,8 +3,6 @@ services:
    pimba_webservice:
      image: pimba/pimba-back:latest
      restart: always
-     volumes:
-       - /var/index:Z
      environment:
        - "DATASOURCE_URL=jdbc:mysql://104.154.103.78:3306/pimba?autoReconnect=true&useSSL=false"
        - "DATASOURCE_USERNAME=root"
