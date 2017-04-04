@@ -85,7 +85,7 @@
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
-                    <registryUrl>http://209.126.108.49:4243</registryUrl>
+                    <registryUrl>http://23.251.151.194:4243</registryUrl>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
