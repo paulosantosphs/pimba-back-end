@@ -1,18 +1,11 @@
 version: '2'
 services:     
    pimba_webservice:
-     image: pimba/webservice:latest
+     image: pimba/pimba-back:latest
      restart: always
-     volumes:
-       - /var/index:Z
      environment:
        - "DATASOURCE_URL=jdbc:mysql://104.154.103.78:3306/pimba?autoReconnect=true&useSSL=false"
        - "DATASOURCE_USERNAME=root"
        - "DATASOURCE_PASSWORD=p1mb@:D"
-     networks:
-       - docker_default
-      
-networks:
-  docker_default:
-    external:
-      name: docker_default
+     ports:
+      - "8080:8080"

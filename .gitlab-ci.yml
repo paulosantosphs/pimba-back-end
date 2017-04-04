@@ -1,9 +1,18 @@
 image: maven:3-jdk-8
+
 variables:
   DOCKER_HOST: tcp://23.251.151.194:4243
+  
+stages:
+    - release
+    - deploy
+  
 release:
+  stage: release
   script: "mvn clean compile package docker:build -B"
+  
 deploy:
+  stage: deploy
   image: host32/docker-compose-image
   environment: production
   script:
