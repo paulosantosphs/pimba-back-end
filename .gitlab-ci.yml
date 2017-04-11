@@ -1,7 +1,7 @@
 image: maven:3-jdk-8
 
 variables:
-  DOCKER_HOST: tcp://23.251.151.194:4243
+  DOCKER_HOST: tcp://54.165.93.233:4243
   
 stages:
     - release
