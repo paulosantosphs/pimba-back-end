@@ -14,15 +14,20 @@ public class State {
 
     private String name;
 
+    private String nick;
+
     @ManyToOne
     @JoinColumn
     private Country country;
 
-    public State() { super(); }
+    public State() {
+        super();
+    }
 
-    public State(String name, Country country) {
-        setName(name);
-        setCountry(country);
+    public State(String name, String nick, Country country) {
+        this.name = name;
+        this.nick = nick;
+        this.country = country;
     }
 
     public Integer getId() {
@@ -39,6 +44,14 @@ public class State {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public Country getCountry() {
