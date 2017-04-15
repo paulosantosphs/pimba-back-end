@@ -15,6 +15,8 @@ deploy:
   stage: deploy
   image: host32/docker-compose-image
   environment: production
+  only:
+    - master@pimba/pimba-back
   script:
     - cd src/main/docker/
     - docker-compose up -d --force-recreate
