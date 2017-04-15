@@ -6,6 +6,7 @@ import pimba.domain.park.Park;
 import pimba.entities.EntityWithTimestamps;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by paulo on 14/04/17.
@@ -20,6 +21,8 @@ public class Comment extends EntityWithTimestamps {
 
     private String comment;
 
+    private Date date;
+
     @ManyToOne
     @JoinColumn
     private Common common;
@@ -33,10 +36,19 @@ public class Comment extends EntityWithTimestamps {
         super();
     }
 
-    public Comment(String comment, Common common, Park park) {
+    public Comment(String comment, Date date, Common common, Park park) {
         this.comment = comment;
+        this.date = date;
         this.common = common;
         this.park = park;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getId() {
