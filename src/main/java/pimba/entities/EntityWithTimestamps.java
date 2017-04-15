@@ -1,5 +1,7 @@
 package pimba.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,9 +15,11 @@ import java.util.Date;
 public class EntityWithTimestamps implements Serializable {
 
     private static final long serialVersionUID = -5922212113015326486L;
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
