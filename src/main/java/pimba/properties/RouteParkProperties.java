@@ -14,6 +14,16 @@ public class RouteParkProperties {
 
     private String list;
 
+    private String coordinates;
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public String getList() {
         return list;
     }

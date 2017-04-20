@@ -12,6 +12,7 @@ import pimba.exceptions.LocationException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +29,36 @@ public class ParkService {
         return park;
     }
 
-    public List<Park> getParkList(String location, double radius) {
+    public ParkResponse getParksByCoordinates(Double pointLatitude, Double pointLongitude, Double userLatitude, Double userLongitude, double radius) {
+        return getParks(pointLatitude, pointLongitude, userLatitude, userLongitude, radius);
+    }
+
+    public ParkResponse getParksByLocation(String location, Double userLatitude, Double userLongitude, double radius) {
         String query = query(location);
         JSONArray coords = getCoordinates(query);
         Double latitude = coords.getDouble(1);
         Double longitude = coords.getDouble(0);
-        return parkRepository.getListParkByLocation(latitude, longitude, latitudeRadius(radius), longitudeRadius(radius));
+        return getParks(latitude, longitude, userLatitude, userLongitude, radius);
+    }
+
+    public ParkResponse getParks(Double pointLatitude, Double pointLongitude, Double userLatitude, Double userLongitude, double radius) {
+        List<Park> parks = parkRepository.getListParkByLocation(pointLatitude, pointLongitude, latitudeRadius(radius), longitudeRadius(radius));
+        String destinations = createDestinationsQuery(parks);
+        JSONArray elements = getJsonDistance(destinations, userLatitude, userLongitude);
+        List<ParkDistance> parkDistances = new ArrayList<>();
+        int c = 0;
+        for (Park park : parks) {
+            JSONObject element = elements.getJSONObject(c);
+            JSONObject dis = element.getJSONObject("distance");
+            JSONObject duration = element.getJSONObject("duration");
+            String distance = dis.getString("text");
+            String time = duration.getString("text");
+            ParkDistance parkDistance = new ParkDistance(park, distance, time);
+            parkDistances.add(parkDistance);
+            c++;
+        }
+        ParkResponse parkResponse = new ParkResponse(parkDistances, pointLatitude, pointLongitude);
+        return parkResponse;
     }
 
     public JSONArray getCoordinates(String query) {
@@ -49,6 +74,31 @@ public class ParkService {
         } catch (JSONException | IOException e) {
             throw new LocationException(e.getMessage());
         }
+    }
+
+
+    public JSONArray getJsonDistance(String query, Double userLatitude, Double userLongitude) {
+        String origins = userLatitude.toString() + "," + userLongitude.toString();
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&language=pt-BR&origins=" + origins + "&destinations=" + query;
+        try {
+            URL request = new URL(url);
+            JSONTokener tokener = new JSONTokener(request.openStream());
+            JSONObject obj = new JSONObject(tokener);
+            JSONArray rows = obj.getJSONArray("rows");
+            JSONObject row = rows.getJSONObject(0);
+            JSONArray elements = row.getJSONArray("elements");
+            return elements;
+        } catch (JSONException | IOException e) {
+            throw new LocationException(e.getMessage());
+        }
+    }
+
+    public String createDestinationsQuery(List<Park> parks) {
+        String query = "";
+        for (Park park : parks) {
+            query = query + park.getAddress().getLatitude() + "," + park.getAddress().getLongitude() + "|";
+        }
+        return query;
     }
 
     public String removeAccents(String str) {
@@ -68,12 +118,12 @@ public class ParkService {
 
 
     // radius(km)
-    private double latitudeRadius(Double radius) {
+    public double latitudeRadius(Double radius) {
         return 0.009044 * radius;
 
     }
 
-    private double longitudeRadius(Double radius) {
+    public double longitudeRadius(Double radius) {
         return 0.0089831 * radius;
     }
 
