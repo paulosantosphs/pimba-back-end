@@ -1,8 +1,8 @@
 spring:
   datasource:
-       url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/pimba?autoReconnect=true&useSSL=false}
-       username: ${DATASOURCE_USERNAME:root}
-       password: ${DATASOURCE_PASSWORD:1234}
+       url: ${DATASOURCE_URL}
+       username: ${DATASOURCE_USERNAME}
+       password: ${DATASOURCE_PASSWORD}
 
        driver-class-name: com.mysql.jdbc.Driver
   jpa:
