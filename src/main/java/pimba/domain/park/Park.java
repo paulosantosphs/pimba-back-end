@@ -56,6 +56,12 @@ public class Park extends EntityWithTimestamps {
         super();
     }
 
+    public Park(Address address, String name, String description) {
+        this.address = address;
+        this.name = name;
+        this.description = description;
+    }
+
     public Park(Address address, String name, String description, Integer spots, String phone, String email, Double evaluation, Customer customer, Set<Comment> comments, Set<Evaluation> evaluations, Set<Rate> rates) {
         this.address = address;
         this.name = name;
