@@ -33,6 +33,11 @@ public class Address extends EntityWithTimestamps {
         super();
     }
 
+    public Address(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public Address(Double latitude, Double longitude, String number, String street, District district) {
         super();
         setLatitude(latitude);
