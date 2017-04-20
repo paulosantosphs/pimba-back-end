@@ -1,20 +1,23 @@
 image: maven:3-jdk-8
 
 variables:
-  DOCKER_HOST: tcp://54.165.93.233:4243
-  
+  DOCKER_HOST: tcp://34.196.26.36:4243
+
 stages:
     - release
     - deploy
-  
+
 release:
   stage: release
   script: "mvn clean compile package docker:build -B"
-  
+
 deploy:
   stage: deploy
   image: host32/docker-compose-image
   environment: production
+  only:
+    - master@pimba/pimba-back
   script:
     - cd src/main/docker/
     - docker-compose up -d --force-recreate
+
