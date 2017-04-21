@@ -5,8 +5,8 @@ package pimba.domain.park;
  */
 public class ParkDistance {
     private Park park;
-    private String distance;
-    private String time;
+    private Integer distance;
+    private Integer time;
 
     public ParkDistance(Park park) {
         this.park = park;
@@ -15,7 +15,7 @@ public class ParkDistance {
     public ParkDistance() {
     }
 
-    public ParkDistance(Park park, String distance, String time) {
+    public ParkDistance(Park park, Integer distance, Integer time) {
         this.park = park;
         this.distance = distance;
         this.time = time;
@@ -29,19 +29,19 @@ public class ParkDistance {
         this.park = park;
     }
 
-    public String getDistance() {
+    public Integer getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(Integer distance) {
         this.distance = distance;
     }
 
-    public String getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 }

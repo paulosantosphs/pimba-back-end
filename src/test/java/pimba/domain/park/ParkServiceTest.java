@@ -87,15 +87,13 @@ public class ParkServiceTest {
 
         Double pointLatitude = -20.487719;
         Double pointLongitude = -43.606921;
-        Double userLatitude = -20.487719;
-        Double userLongitude = -43.606921;
 
         double radius = 10;
         double latitudeRadius = service.latitudeRadius(radius);
         double longitudeRadius = service.longitudeRadius(radius);
 
         when(parkRepository.getListParkByLocation(pointLatitude, pointLongitude, latitudeRadius, longitudeRadius)).thenReturn(parks);
-        ParkResponse parkResponse = service.getParks(pointLatitude, pointLongitude, userLatitude, userLongitude, radius);
+        ParkResponse parkResponse = service.getParks(pointLatitude, pointLongitude, radius);
         List<ParkDistance> distances = parkResponse.getParkDistances();
         Park parkDistance1 = distances.get(0).getPark();
         Park parkDistance2 = distances.get(1).getPark();
@@ -105,21 +103,21 @@ public class ParkServiceTest {
         Assert.assertEquals(park2, parkDistance2);
         Assert.assertEquals(park3, parkDistance3);
 
-        String time1 = distances.get(0).getTime();
-        String time2 = distances.get(1).getTime();
-        String time3 = distances.get(2).getTime();
+        Integer time1 = distances.get(0).getTime();
+        Integer time2 = distances.get(1).getTime();
+        Integer time3 = distances.get(2).getTime();
 
-        Assert.assertEquals(time1, "29 minutos");
-        Assert.assertEquals(time2, "58 minutos");
-        Assert.assertEquals(time3, "38 minutos");
+        Assert.assertEquals(time1.intValue(), 1730);
+        Assert.assertEquals(time2.intValue(), 3509);
+        Assert.assertEquals(time3.intValue(), 2295);
 
-        String distance1 = distances.get(0).getDistance();
-        String distance2 = distances.get(1).getDistance();
-        String distance3 = distances.get(2).getDistance();
+        Integer distance1 = distances.get(0).getDistance();
+        Integer distance2 = distances.get(1).getDistance();
+        Integer distance3 = distances.get(2).getDistance();
 
-        Assert.assertEquals(distance1, "20,6 km");
-        Assert.assertEquals(distance2, "28,4 km");
-        Assert.assertEquals(distance3, "29,8 km");
+        Assert.assertEquals(distance1.intValue(), 20577);
+        Assert.assertEquals(distance2.intValue(), 28398);
+        Assert.assertEquals(distance3.intValue(), 29846);
     }
 
 }

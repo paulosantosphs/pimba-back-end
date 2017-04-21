@@ -29,30 +29,39 @@ public class ParkService {
         return park;
     }
 
-    public ParkResponse getParksByCoordinates(Double pointLatitude, Double pointLongitude, Double userLatitude, Double userLongitude, double radius) {
-        return getParks(pointLatitude, pointLongitude, userLatitude, userLongitude, radius);
+    public ParkResponse getParksByCoordinates(Double pointLatitude, Double pointLongitude, double radius) {
+        if (pointLatitude == null || pointLongitude == null) {
+            throw new LocationException("pointLatitude or pointLongitude are null");
+        }
+        return getParks(pointLatitude, pointLongitude, radius);
     }
 
-    public ParkResponse getParksByLocation(String location, Double userLatitude, Double userLongitude, double radius) {
+    public ParkResponse getParksByLocation(String location, double radius) {
+        if (location.isEmpty()) {
+            throw new LocationException("Location is null");
+        }
         String query = query(location);
         JSONArray coords = getCoordinates(query);
         Double latitude = coords.getDouble(1);
         Double longitude = coords.getDouble(0);
-        return getParks(latitude, longitude, userLatitude, userLongitude, radius);
+        return getParks(latitude, longitude, radius);
     }
 
-    public ParkResponse getParks(Double pointLatitude, Double pointLongitude, Double userLatitude, Double userLongitude, double radius) {
+    public ParkResponse getParks(Double pointLatitude, Double pointLongitude, double radius) {
         List<Park> parks = parkRepository.getListParkByLocation(pointLatitude, pointLongitude, latitudeRadius(radius), longitudeRadius(radius));
+        if (parks.isEmpty()) {
+            throw new LocationException("Parkings not found");
+        }
         String destinations = createDestinationsQuery(parks);
-        JSONArray elements = getJsonDistance(destinations, userLatitude, userLongitude);
+        JSONArray elements = getJsonDistance(destinations, pointLatitude, pointLongitude);
         List<ParkDistance> parkDistances = new ArrayList<>();
         int c = 0;
         for (Park park : parks) {
             JSONObject element = elements.getJSONObject(c);
             JSONObject dis = element.getJSONObject("distance");
             JSONObject duration = element.getJSONObject("duration");
-            String distance = dis.getString("text");
-            String time = duration.getString("text");
+            Integer distance = dis.getInt("value");
+            Integer time = duration.getInt("value");
             ParkDistance parkDistance = new ParkDistance(park, distance, time);
             parkDistances.add(parkDistance);
             c++;
@@ -72,13 +81,13 @@ public class ParkService {
             JSONObject geometry = feature.getJSONObject("geometry");
             return geometry.getJSONArray("coordinates");
         } catch (JSONException | IOException e) {
-            throw new LocationException(e.getMessage());
+            throw new LocationException("Address is incomplete");
         }
     }
 
 
-    public JSONArray getJsonDistance(String query, Double userLatitude, Double userLongitude) {
-        String origins = userLatitude.toString() + "," + userLongitude.toString();
+    public JSONArray getJsonDistance(String query, Double pointLatitude, Double pointLongitude) {
+        String origins = pointLatitude.toString() + "," + pointLongitude.toString();
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&language=pt-BR&origins=" + origins + "&destinations=" + query;
         try {
             URL request = new URL(url);

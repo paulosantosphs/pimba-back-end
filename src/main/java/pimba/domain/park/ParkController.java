@@ -26,15 +26,15 @@ public class ParkController {
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "${park.list}", method = RequestMethod.GET)
-    public ParkResponse getParkListByLocation(@RequestParam String location, Double userLatitude, Double userLongitude) {
-        return parkService.getParksByLocation(location, userLatitude, userLongitude, 10);
+    public ParkResponse getParkListByLocation(@RequestParam String location) {
+        return parkService.getParksByLocation(location, 10);
     }
 
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "${park.coordinates}", method = RequestMethod.GET)
-    public ParkResponse getParkListByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude, Double userLatitude, Double userLongitude) {
-        return parkService.getParksByCoordinates(pointLatitude, pointLongitude, userLatitude, userLongitude, 10);
+    public ParkResponse getParkListByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude) {
+        return parkService.getParksByCoordinates(pointLatitude, pointLongitude, 10);
     }
 
 }
