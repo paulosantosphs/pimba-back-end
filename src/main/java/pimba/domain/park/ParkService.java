@@ -49,9 +49,9 @@ public class ParkService {
 
     public ParkResponse getParks(Double pointLatitude, Double pointLongitude, double radius) {
         List<Park> parks = parkRepository.getListParkByLocation(pointLatitude, pointLongitude, latitudeRadius(radius), longitudeRadius(radius));
-        /*if (parks.isEmpty()) {
-            throw new LocationException("Parkings not found");
-        }*/
+        if (parks.isEmpty()) {
+            return new ParkResponse(new ArrayList<>(), pointLatitude, pointLongitude);
+        }
         String destinations = createDestinationsQuery(parks);
         JSONArray elements = getJsonDistance(destinations, pointLatitude, pointLongitude);
         List<ParkDistance> parkDistances = new ArrayList<>();
