@@ -2,7 +2,7 @@ image: maven:3-jdk-8
 
 variables:
   DOCKER_HOST: tcp://34.196.26.36:4243
-
+  
 stages:
     - release
     - deploy
@@ -20,4 +20,3 @@ deploy:
   script:
     - cd src/main/docker/
     - docker-compose up -d --force-recreate
-
