@@ -16,13 +16,27 @@ import java.util.Set;
  */
 @Entity
 public class Common extends EntityWithTimestamps {
+    private static final long serialVersionUID = -702708536601931246L;
 
-    private static final long serialVersionUID = 5426467790129670258L;
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
+
+    private String phone;
+
+    private String photo;
+
+    private String city;
+
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    private String credit;
 
     @OneToOne(mappedBy = "common")
     @JsonBackReference
@@ -47,16 +61,27 @@ public class Common extends EntityWithTimestamps {
         this.name = name;
     }
 
-    public Common(String name, User user, Set<Vehicle> vehicles, Set<Comment> comments, Set<Evaluation> evaluations) {
+    public Common(String name, String phone, String photo, String city, String email, Gender gender) {
         this.name = name;
+        this.phone = phone;
+        this.photo = photo;
+        this.city = city;
+        this.email = email;
+        this.gender = gender;
+    }
+
+    public Common(String name, String phone, String photo, String city, String email, Gender gender, String credit, User user, Set<Vehicle> vehicles, Set<Comment> comments, Set<Evaluation> evaluations) {
+        this.name = name;
+        this.phone = phone;
+        this.photo = photo;
+        this.city = city;
+        this.email = email;
+        this.gender = gender;
+        this.credit = credit;
         this.user = user;
         this.vehicles = vehicles;
         this.comments = comments;
         this.evaluations = evaluations;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -73,6 +98,54 @@ public class Common extends EntityWithTimestamps {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
     }
 
     public User getUser() {

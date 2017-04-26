@@ -4,15 +4,31 @@ spring:
        username: ${DATASOURCE_USERNAME}
        password: ${DATASOURCE_PASSWORD}
 
+
        driver-class-name: com.mysql.jdbc.Driver
   jpa:
     database: MYSQL
     generate-ddl: true
     ddl-auto: update
+
 park:
   base: park
   list: list
   coordinates: list/coordinates
+
+mapbox:
+  token: pk.eyJ1IjoicGF1bG9zYW50b3NwaHMiLCJhIjoiY2oxN3k5NHhzMDZvdzJ3bXo5Nzh5ZGZlNCJ9.SjLN3Nwnqq0VnByM3f6wKQ
+
+common:
+  base: common
+  edit:
+    base: edit
+    name: name
+    photo: photo
+    phone: phone
+    gender: gender
+    city: city
+
 login:
   facebook:
     app-id: 240904326376282

@@ -1,6 +1,7 @@
 package pimba.domain.park;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,15 +27,24 @@ public class ParkController {
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "${park.list}", method = RequestMethod.GET)
-    public ParkResponse getParkListByLocation(@RequestParam String location) {
-        return parkService.getParksByLocation(location, 10);
+    public ResponseEntity<ParkResponse> getParkListByLocation(@RequestParam String location) {
+        if (location.isEmpty()) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(parkService.getParksByLocation(location, 10));
+        }
+
     }
 
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "${park.coordinates}", method = RequestMethod.GET)
-    public ParkResponse getParkListByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude) {
-        return parkService.getParksByCoordinates(pointLatitude, pointLongitude, 10);
+    public ResponseEntity<ParkResponse> getParkListByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude) {
+        if (pointLatitude == null || pointLongitude == null) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(parkService.getParksByCoordinates(pointLatitude, pointLongitude, 10));
+        }
     }
 
 }
