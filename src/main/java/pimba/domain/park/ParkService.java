@@ -68,7 +68,7 @@ public class ParkService {
     }
 
     public JSONArray getCoordinates(String query) {
-        String url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + query + ".json?access_token=" + mapbox + "&country=br&proximity=&bbox=&types=address%2Cneighborhood%2Clocality%2Cplace&autocomplete=false&limit=1";
+        String url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + query + ".json?access_token=pk.eyJ1IjoicGF1bG9zYW50b3NwaHMiLCJhIjoiY2oxN3k5NHhzMDZvdzJ3bXo5Nzh5ZGZlNCJ9.SjLN3Nwnqq0VnByM3f6wKQ&country=br&proximity=&bbox=&types=address%2Cneighborhood%2Clocality%2Cplace&autocomplete=false&limit=1";
         try {
             URL request = new URL(url);
             JSONTokener tokener = new JSONTokener(request.openStream());

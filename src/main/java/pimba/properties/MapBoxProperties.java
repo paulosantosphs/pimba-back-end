@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "mapbox")
 public class MapBoxProperties {
 
-    String token;
+    private String token;
+
 
     public String getToken() {
         return token;
