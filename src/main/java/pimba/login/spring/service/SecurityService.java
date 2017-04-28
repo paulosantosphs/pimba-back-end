@@ -8,4 +8,8 @@ public interface SecurityService {
 
     public Optional<User> getCurrentUser();
 
+    public Boolean isCurrentUserCommon();
+
+    public Boolean isCurrentUserCustomer();
+
 }

@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pimba.exceptions.InvalidParkException;
 import pimba.exceptions.LocationException;
@@ -23,6 +24,8 @@ public class ParkService {
     @Autowired
     private ParkRepository parkRepository;
 
+    @Value("${mapbox.token}")
+    private String mapbox;
 
     public Park getParkByName(String name) {
         Park park = parkRepository.findByName(name).orElseThrow(() -> new InvalidParkException("Parking not found"));
@@ -30,16 +33,10 @@ public class ParkService {
     }
 
     public ParkResponse getParksByCoordinates(Double pointLatitude, Double pointLongitude, double radius) {
-        if (pointLatitude == null || pointLongitude == null) {
-            throw new LocationException("pointLatitude or pointLongitude are null");
-        }
         return getParks(pointLatitude, pointLongitude, radius);
     }
 
     public ParkResponse getParksByLocation(String location, double radius) {
-        if (location.isEmpty()) {
-            throw new LocationException("Location is null");
-        }
         String query = query(location);
         JSONArray coords = getCoordinates(query);
         Double latitude = coords.getDouble(1);
@@ -81,7 +78,7 @@ public class ParkService {
             JSONObject geometry = feature.getJSONObject("geometry");
             return geometry.getJSONArray("coordinates");
         } catch (JSONException | IOException e) {
-            throw new LocationException("Address is incomplete");
+            throw new LocationException("Address is wrong or mapbox api problem");
         }
     }
 

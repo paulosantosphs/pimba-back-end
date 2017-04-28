@@ -24,6 +24,7 @@ public class State {
         super();
     }
 
+
     public State(String name, String nick, Country country) {
         this.name = name;
         this.nick = nick;
