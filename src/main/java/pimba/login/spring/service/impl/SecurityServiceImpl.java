@@ -25,22 +25,5 @@ public class SecurityServiceImpl implements SecurityService {
         return userRepo.findByEmail(details.getName());
     }
 
-    public Boolean isCurrentUserCommon() {
-        User user = getCurrentUser().get();
-        if (user.getCommon() != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public Boolean isCurrentUserCustomer() {
-        User user = getCurrentUser().get();
-        if (user.getCustomer() != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 }
