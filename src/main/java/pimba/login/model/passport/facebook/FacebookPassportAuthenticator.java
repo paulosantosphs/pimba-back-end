@@ -34,7 +34,7 @@ public class FacebookPassportAuthenticator extends PassportAuthenticator {
             String name = obj.getString("name");
 
             User user = userRepo.findByEmail(realEmail).orElseGet(() -> {
-                Common newCommon = new Common(name);
+                Common newCommon = new Common(name, realEmail);
                 User newUser = new User(realEmail, newCommon);
                 commonRepository.save(newCommon);
                 return userRepo.save(newUser);

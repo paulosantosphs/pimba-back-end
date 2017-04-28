@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pimba.domain.common.Common;
 import pimba.domain.common.CommonRepository;
 import pimba.domain.customer.Customer;
+import pimba.login.gravatar.MD5Util;
 import pimba.login.model.passport.Passport;
 import pimba.login.model.passport.PassportAuthenticator;
 import pimba.login.model.passport.PassportType;
@@ -89,7 +90,7 @@ public class UserService {
     public User registerCommon(String email, String password, String name) {
 
         if (!userRepo.findByEmail(email).isPresent()) {
-            Common common = new Common(name);
+            Common common = new Common(name, createPhotoUrl(email), email);
             User user = new User(email, common);
             PasswordPassport wordPass = new PasswordPassport(user);
             wordPass.setPassword(password);
@@ -135,4 +136,12 @@ public class UserService {
 
         return user;
     }
+
+    private String createPhotoUrl(String email) {
+        email = email.toLowerCase();
+        String hash = MD5Util.md5Hex(email);
+        String url = "https://www.gravatar.com/avatar/" + hash + "?s=128";
+        return url;
+    }
+
 }
