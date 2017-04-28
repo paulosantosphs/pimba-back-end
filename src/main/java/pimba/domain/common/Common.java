@@ -61,6 +61,11 @@ public class Common extends EntityWithTimestamps {
         this.name = name;
     }
 
+    public Common(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Common(String name, String phone, String photo, String city, String email, Gender gender) {
         this.name = name;
         this.phone = phone;
