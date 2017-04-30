@@ -11,16 +11,18 @@ import javax.persistence.*;
  */
 @Entity
 public class Vehicle extends EntityWithTimestamps {
-    private static final long serialVersionUID = -6150305127167974080L;
+
+    private static final long serialVersionUID = -5899362660838917924L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    private String description;
+    private String motor;
 
-    private String company;
+    private String brand;
 
     private Integer year;
 
@@ -31,17 +33,24 @@ public class Vehicle extends EntityWithTimestamps {
     @JsonBackReference
     private Common common;
 
-    public Vehicle(String name, String description, String company, Integer year, String licensePlate) {
-        super();
-        this.name = name;
-        this.description = description;
-        this.company = company;
-        this.year = year;
-        this.licensePlate = licensePlate;
+    public Vehicle() {
     }
 
-    public Vehicle(Common common) {
+    public Vehicle(String name, String motor, String brand, Integer year, String licensePlate, Common common) {
+        this.name = name;
+        this.motor = motor;
+        this.brand = brand;
+        this.year = year;
+        this.licensePlate = licensePlate;
         this.common = common;
+    }
+
+    public Vehicle(String name, String motor, String brand, Integer year, String licensePlate) {
+        this.name = name;
+        this.motor = motor;
+        this.brand = brand;
+        this.year = year;
+        this.licensePlate = licensePlate;
     }
 
     public Integer getId() {
@@ -60,20 +69,20 @@ public class Vehicle extends EntityWithTimestamps {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMotor() {
+        return motor;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMotor(String motor) {
+        this.motor = motor;
     }
 
-    public String getCompany() {
-        return company;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public Integer getYear() {
@@ -99,5 +108,4 @@ public class Vehicle extends EntityWithTimestamps {
     public void setCommon(Common common) {
         this.common = common;
     }
-
 }

@@ -3,8 +3,6 @@ spring:
        url: ${DATASOURCE_URL}
        username: ${DATASOURCE_USERNAME}
        password: ${DATASOURCE_PASSWORD}
-
-
        driver-class-name: com.mysql.jdbc.Driver
   jpa:
     database: MYSQL
@@ -28,6 +26,17 @@ common:
     phone: phone
     gender: gender
     city: city
+
+vehicle:
+  base: vehicle
+  vehicles: vehicles
+  register: register
+  edit:
+    name: name
+    motor: motor
+    brand: brand
+    year: year
+    licensePlate: licensePlate
 
 login:
   facebook:
