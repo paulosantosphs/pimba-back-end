@@ -47,7 +47,7 @@ public class VehicleControllerTest {
 
         vehicles.clear();
         when(service.getVehicles()).thenReturn(vehicles);
-        Assert.assertEquals(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null), controller.getVehicles());
+        Assert.assertEquals(ResponseEntity.ok(new ArrayList<Vehicle>()), controller.getVehicles());
     }
 
     @Test
