@@ -25,9 +25,9 @@ public class VehicleService {
     public List<Vehicle> getVehicles() {
         User user = securityService.getCurrentUser().get();
         Common common = user.getCommon();
-        if (common.getVehicles().isEmpty()) {
+        /*if (common.getVehicles().isEmpty()) {
             return null;
-        }
+        }*/
         List<Vehicle> vehicles = new ArrayList<>(common.getVehicles());
         return vehicles;
     }
