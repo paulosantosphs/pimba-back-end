@@ -32,6 +32,7 @@ vehicle:
   vehicles: vehicles
   register: register
   edit:
+    base: edit
     name: name
     motor: motor
     brand: brand
