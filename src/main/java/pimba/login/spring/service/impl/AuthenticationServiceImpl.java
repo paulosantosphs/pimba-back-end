@@ -6,10 +6,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import pimba.login.model.passport.PassportType;
 import pimba.login.model.passport.facebook.FacebookPassportAuthenticator;
 import pimba.login.model.user.User;
+import pimba.login.repository.UserRepository;
 import pimba.login.service.FacebookService;
 import pimba.login.service.UserService;
 import pimba.login.spring.config.TokenUtils;
@@ -32,6 +34,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private FacebookPassportAuthenticator facebookPassportAuthenticator;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public String loginCommon(String username, PassportType type, String authString) {
 
         userService.authenticateCommon(username, type, authString).orElseThrow(() -> new BadCredentialsException("Usuário e/ou senha inválidos"));
@@ -43,7 +48,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()));
 
         // Reload password post-authentication so we can generate token
-        return this.tokenUtils.generateToken(userDetails);
+        String token = this.tokenUtils.generateToken(userDetails);
+        User user = userService.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+        user.setLastLogin();
+        userRepository.save(user);
+        return token;
     }
 
     public String refresh(String token) {

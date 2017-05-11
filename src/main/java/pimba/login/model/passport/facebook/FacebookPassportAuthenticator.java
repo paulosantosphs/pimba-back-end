@@ -32,7 +32,7 @@ public class FacebookPassportAuthenticator extends PassportAuthenticator {
 
             String realEmail = obj.getString("email");
             String name = obj.getString("name");
-
+            System.out.print(obj.getString("images"));
             User user = userRepo.findByEmail(realEmail).orElseGet(() -> {
                 Common newCommon = new Common(name, realEmail);
                 User newUser = new User(realEmail, newCommon);
@@ -46,9 +46,11 @@ public class FacebookPassportAuthenticator extends PassportAuthenticator {
                     });
             passport.setAccessToken(accessToken);
             passportRepo.save(passport);
+            user.setLastLogin();
+            userRepo.save(user);
             return Optional.of(user);
         } catch (Exception e) {
-            return Optional.ofNullable(null);
+            throw new FacebookAccessException("Facebook authentication problem");
         }
 
     }

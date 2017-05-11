@@ -28,11 +28,6 @@ public class VehicleController {
     public ResponseEntity<List<Vehicle>> getVehicles() {
         if (currentUserVerication.isCurrentUserCommon()) {
             List<Vehicle> vehicles = vehicleService.getVehicles();
-            /*if (vehicles.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            } else {
-                return ResponseEntity.ok(vehicles);
-            }*/
             return ResponseEntity.ok(vehicles);
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);

@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 @Entity
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -8412577890629372424L;
+
+    private static final long serialVersionUID = 148393034858873300L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +33,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     @JsonIgnore
     private Date updatedDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogin;
 
     @OneToOne
     @JoinColumn
@@ -95,6 +99,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin() {
+        this.lastLogin = new Date();
+    }
+
     public Date getInsertedDate() {
         return insertedDate;
     }
@@ -133,6 +145,14 @@ public class User implements Serializable {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void setPassports(List<Passport> passports) {
+        this.passports = passports;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @JsonIgnore

@@ -140,7 +140,7 @@ public class UserService {
     private String createPhotoUrl(String email) {
         email = email.toLowerCase();
         String hash = MD5Util.md5Hex(email);
-        String url = "https://www.gravatar.com/avatar/" + hash + "?s=128";
+        String url = "https://www.gravatar.com/avatar/" + hash + "?s=256";
         return url;
     }
 
