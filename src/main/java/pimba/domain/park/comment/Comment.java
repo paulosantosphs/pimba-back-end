@@ -1,6 +1,7 @@
 package pimba.domain.park.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import pimba.domain.common.Common;
 import pimba.domain.park.Park;
 import pimba.entities.EntityWithTimestamps;
@@ -21,6 +22,7 @@ public class Comment extends EntityWithTimestamps {
 
     private String comment;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @ManyToOne
