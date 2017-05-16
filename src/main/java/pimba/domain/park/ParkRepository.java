@@ -15,6 +15,8 @@ public interface ParkRepository extends CrudRepository<Park, Integer> {
 
     Optional<Park> findByName(String name);
 
+    Optional<Park> findById(Integer id);
+
     @Query("SELECT p FROM Park p JOIN FETCH p.address WHERE (p.address.latitude BETWEEN (?1-?3) AND (?1+?3))" +
             "AND (p.address.longitude BETWEEN (?2-?4) AND (?2+?4))")
     List<Park> getListParkByLocation(Double latitude, Double longitude, Double latitudeRadius, Double longitudeRadius);

@@ -12,6 +12,8 @@ public class MapBoxProperties {
 
     private String token;
 
+    public MapBoxProperties() {
+    }
 
     public String getToken() {
         return token;

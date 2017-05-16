@@ -2,6 +2,7 @@ package pimba.domain.common;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pimba.domain.common.historic.Historic;
 import pimba.domain.park.comment.Comment;
 import pimba.domain.park.evaluation.Evaluation;
 import pimba.domain.vehicle.Vehicle;
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 @Entity
 public class Common extends EntityWithTimestamps {
-    private static final long serialVersionUID = -702708536601931246L;
+    private static final long serialVersionUID = -2453528703899001011L;
 
     @Id
     @JsonIgnore
@@ -53,6 +54,10 @@ public class Common extends EntityWithTimestamps {
     @JsonIgnore
     private Set<Evaluation> evaluations;
 
+    @OneToMany(mappedBy = "common")
+    @JsonIgnore
+    private Set<Historic> historic;
+
     public Common() {
         super();
     }
@@ -81,7 +86,7 @@ public class Common extends EntityWithTimestamps {
         this.gender = gender;
     }
 
-    public Common(String name, String phone, String photo, String city, String email, Gender gender, String credit, User user, Set<Vehicle> vehicles, Set<Comment> comments, Set<Evaluation> evaluations) {
+    public Common(String name, String phone, String photo, String city, String email, Gender gender, String credit, User user, Set<Vehicle> vehicles, Set<Comment> comments, Set<Evaluation> evaluations, Set<Historic> historic) {
         this.name = name;
         this.phone = phone;
         this.photo = photo;
@@ -93,6 +98,7 @@ public class Common extends EntityWithTimestamps {
         this.vehicles = vehicles;
         this.comments = comments;
         this.evaluations = evaluations;
+        this.historic = historic;
     }
 
     public Integer getId() {
@@ -189,5 +195,13 @@ public class Common extends EntityWithTimestamps {
 
     public void setEvaluations(Set<Evaluation> evaluations) {
         this.evaluations = evaluations;
+    }
+
+    public Set<Historic> getHistoric() {
+        return historic;
+    }
+
+    public void setHistoric(Set<Historic> historic) {
+        this.historic = historic;
     }
 }

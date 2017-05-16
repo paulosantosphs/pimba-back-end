@@ -36,9 +36,9 @@ public class Comment extends EntityWithTimestamps {
         super();
     }
 
-    public Comment(String comment, Date date, Common common, Park park) {
+    public Comment(String comment, Common common, Park park) {
         this.comment = comment;
-        this.date = date;
+        this.date = new Date();
         this.common = common;
         this.park = park;
     }
@@ -47,8 +47,8 @@ public class Comment extends EntityWithTimestamps {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = new Date();
     }
 
     public Integer getId() {

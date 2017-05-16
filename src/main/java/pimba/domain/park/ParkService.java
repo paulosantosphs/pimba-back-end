@@ -25,7 +25,7 @@ public class ParkService {
     private ParkRepository parkRepository;
 
     @Value("${mapbox.token}")
-    private String mapbox;
+    public String mapbox;
 
     public Park getParkByName(String name) {
         Park park = parkRepository.findByName(name).orElseThrow(() -> new InvalidParkException("Parking not found"));

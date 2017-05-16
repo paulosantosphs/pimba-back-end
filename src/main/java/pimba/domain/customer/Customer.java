@@ -44,6 +44,11 @@ public class Customer extends EntityWithTimestamps {
         super();
     }
 
+    public Customer(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Customer(String name, String phone, String email, User user, Set<Park> parks, Set<Plan> plans, Set<Promotion> promotions) {
         this.name = name;
         this.phone = phone;

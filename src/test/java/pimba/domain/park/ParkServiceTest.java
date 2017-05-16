@@ -108,15 +108,15 @@ public class ParkServiceTest {
         Integer time3 = distances.get(2).getTime();
 
         Assert.assertEquals(time1.intValue(), 1730);
-        Assert.assertEquals(time2.intValue(), 3509);
-        Assert.assertEquals(time3.intValue(), 2295);
+        Assert.assertEquals(time2.intValue(), 3462);
+        Assert.assertEquals(time3.intValue(), 2293);
 
         Integer distance1 = distances.get(0).getDistance();
         Integer distance2 = distances.get(1).getDistance();
         Integer distance3 = distances.get(2).getDistance();
 
         Assert.assertEquals(distance1.intValue(), 20577);
-        Assert.assertEquals(distance2.intValue(), 28398);
+        Assert.assertEquals(distance2.intValue(), 14182);
         Assert.assertEquals(distance3.intValue(), 29846);
     }
 

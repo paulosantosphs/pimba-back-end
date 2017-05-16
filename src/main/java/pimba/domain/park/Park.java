@@ -1,7 +1,9 @@
 package pimba.domain.park;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pimba.domain.address.Address;
+import pimba.domain.common.historic.Historic;
 import pimba.domain.customer.Customer;
 import pimba.domain.park.comment.Comment;
 import pimba.domain.park.evaluation.Evaluation;
@@ -16,8 +18,8 @@ import java.util.Set;
  */
 @Entity
 public class Park extends EntityWithTimestamps {
+    private static final long serialVersionUID = 6702671705503578496L;
 
-    private static final long serialVersionUID = -7429888918550852794L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -52,8 +54,19 @@ public class Park extends EntityWithTimestamps {
     @OneToMany(mappedBy = "park")
     private Set<Rate> rates;
 
+    @OneToMany(mappedBy = "park")
+    @JsonBackReference
+    private Set<Historic> historic;
+
+
     public Park() {
         super();
+    }
+
+    public Park(Address address, String name, Customer customer) {
+        this.address = address;
+        this.name = name;
+        this.customer = customer;
     }
 
     public Park(Address address, String name, String description) {
@@ -62,7 +75,7 @@ public class Park extends EntityWithTimestamps {
         this.description = description;
     }
 
-    public Park(Address address, String name, String description, Integer spots, String phone, String email, Double evaluation, Customer customer, Set<Comment> comments, Set<Evaluation> evaluations, Set<Rate> rates) {
+    public Park(Address address, String name, String description, Integer spots, String phone, String email, Double evaluation, Customer customer, Set<Comment> comments, Set<Evaluation> evaluations, Set<Rate> rates, Set<Historic> historic) {
         this.address = address;
         this.name = name;
         this.description = description;
@@ -74,6 +87,7 @@ public class Park extends EntityWithTimestamps {
         this.comments = comments;
         this.evaluations = evaluations;
         this.rates = rates;
+        this.historic = historic;
     }
 
     public Integer getId() {
@@ -136,8 +150,12 @@ public class Park extends EntityWithTimestamps {
         return evaluation;
     }
 
-    public void setEvaluation(Double evaluation) {
-        this.evaluation = evaluation;
+    public void setEvaluation() {
+        int sum = 0;
+        for (Evaluation evalu : evaluations) {
+            sum = sum + evalu.getStarNumber();
+        }
+        this.evaluation = ((double) sum / (double) evaluations.size());
     }
 
     public Customer getCustomer() {
@@ -170,5 +188,13 @@ public class Park extends EntityWithTimestamps {
 
     public void setRates(Set<Rate> rates) {
         this.rates = rates;
+    }
+
+    public Set<Historic> getHistoric() {
+        return historic;
+    }
+
+    public void setHistoric(Set<Historic> historic) {
+        this.historic = historic;
     }
 }
