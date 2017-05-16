@@ -12,6 +12,9 @@ public class CommentSaveRequest {
     @NotNull
     private String comment;
 
+    public CommentSaveRequest() {
+    }
+
     public CommentSaveRequest(Integer parkId, String comment) {
         this.parkId = parkId;
         this.comment = comment;
