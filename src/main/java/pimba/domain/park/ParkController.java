@@ -64,7 +64,7 @@ public class ParkController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "${park.best}/${park.coordinates}", method = RequestMethod.GET)
     public ResponseEntity<Park> getBestParkByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude, RatePeriod period) {
-        if (pointLatitude == null || pointLongitude == null || period ==null) {
+        if (pointLatitude == null || pointLongitude == null || period == null) {
             return ResponseEntity.badRequest().body(null);
         } else {
             return ResponseEntity.ok(parkService.getBestParkByCoordinates(pointLatitude, pointLongitude, 10, period));

@@ -34,7 +34,7 @@ public class HeuristicService {
     public Park bestPark(Double pointLatitude, Double pointLongitude, double radius, RatePeriod period) {
         List<Park> parks = parkRepository.getListParkByLocation(pointLatitude, pointLongitude, parkService.latitudeRadius(radius), parkService.longitudeRadius(radius));
         if (parks.isEmpty()) {
-            return new Park();
+            return null;
         }
         String destinations = parkService.createDestinationsQuery(parks);
         JSONArray elements = parkService.getJsonDistance(destinations, pointLatitude, pointLongitude);
