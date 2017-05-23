@@ -20,7 +20,7 @@ public class Rate extends EntityWithTimestamps {
     private Double price;
 
     @Enumerated(EnumType.STRING)
-    private RatePeriod period;
+    private RatePeriod ratePeriod;
 
     @ManyToOne
     @JoinColumn
@@ -31,9 +31,13 @@ public class Rate extends EntityWithTimestamps {
         super();
     }
 
-    public Rate(Double price, RatePeriod period, Park park) {
+    public Rate(Park park) {
+        this.park = park;
+    }
+
+    public Rate(Double price, RatePeriod ratePeriod, Park park) {
         this.price = price;
-        this.period = period;
+        this.ratePeriod = ratePeriod;
         this.park = park;
     }
 
@@ -54,11 +58,11 @@ public class Rate extends EntityWithTimestamps {
     }
 
     public RatePeriod getPeriod() {
-        return period;
+        return ratePeriod;
     }
 
-    public void setPeriod(RatePeriod period) {
-        this.period = period;
+    public void setPeriod(RatePeriod ratePeriod) {
+        this.ratePeriod = ratePeriod;
     }
 
     public Park getPark() {

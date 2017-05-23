@@ -43,6 +43,7 @@ public class Common extends EntityWithTimestamps {
     @JsonBackReference
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "common", cascade = CascadeType.ALL)
     private Set<Vehicle> vehicles;
 

@@ -16,6 +16,19 @@ public class RouteParkProperties {
 
     private String coordinates;
 
+    private String best;
+
+    public RouteParkProperties() {
+    }
+
+    public String getBest() {
+        return best;
+    }
+
+    public void setBest(String best) {
+        this.best = best;
+    }
+
     public String getCoordinates() {
         return coordinates;
     }

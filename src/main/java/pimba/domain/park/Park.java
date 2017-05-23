@@ -69,6 +69,10 @@ public class Park extends EntityWithTimestamps {
         this.customer = customer;
     }
 
+    public Park(String name) {
+        this.name = name;
+    }
+
     public Park(Address address, String name, String description) {
         this.address = address;
         this.name = name;
@@ -89,6 +93,7 @@ public class Park extends EntityWithTimestamps {
         this.rates = rates;
         this.historic = historic;
     }
+
 
     public Integer getId() {
         return id;

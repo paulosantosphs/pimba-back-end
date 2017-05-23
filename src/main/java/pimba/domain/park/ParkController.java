@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pimba.domain.park.rate.RatePeriod;
 
 /**
  * Created by paulo on 02/04/17.
@@ -38,12 +39,35 @@ public class ParkController {
 
     @CrossOrigin(origins = "*")
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "${park.coordinates}", method = RequestMethod.GET)
+    @RequestMapping(value = "${park.list}/${park.coordinates}", method = RequestMethod.GET)
     public ResponseEntity<ParkResponse> getParkListByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude) {
         if (pointLatitude == null || pointLongitude == null) {
             return ResponseEntity.badRequest().body(null);
         } else {
             return ResponseEntity.ok(parkService.getParksByCoordinates(pointLatitude, pointLongitude, 10));
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "${park.best}", method = RequestMethod.GET)
+    public ResponseEntity<Park> getBestParktByLocation(@RequestParam String location, RatePeriod period) {
+        if (location.isEmpty() || period == null) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(parkService.getBestParkByLocation(location, 10, period));
+        }
+
+    }
+
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "${park.best}/${park.coordinates}", method = RequestMethod.GET)
+    public ResponseEntity<Park> getBestParkByCoordinates(@RequestParam Double pointLatitude, Double pointLongitude, RatePeriod period) {
+        if (pointLatitude == null || pointLongitude == null || period ==null) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(parkService.getBestParkByCoordinates(pointLatitude, pointLongitude, 10, period));
         }
     }
 

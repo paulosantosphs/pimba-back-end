@@ -7,6 +7,8 @@ import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pimba.domain.park.heuristic.HeuristicService;
+import pimba.domain.park.rate.RatePeriod;
 import pimba.exceptions.InvalidParkException;
 import pimba.exceptions.LocationException;
 
@@ -24,12 +26,27 @@ public class ParkService {
     @Autowired
     private ParkRepository parkRepository;
 
+    @Autowired
+    private HeuristicService heuristicService;
+
     @Value("${mapbox.token}")
     public String mapbox;
 
     public Park getParkByName(String name) {
         Park park = parkRepository.findByName(name).orElseThrow(() -> new InvalidParkException("Parking not found"));
         return park;
+    }
+
+    public Park getBestParkByCoordinates(Double pointLatitude, Double pointLongitude, double radius, RatePeriod period) {
+        return heuristicService.bestPark(pointLatitude, pointLongitude, radius, period);
+    }
+
+    public Park getBestParkByLocation(String location, double radius, RatePeriod period) {
+        String query = query(location);
+        JSONArray coords = getCoordinates(query);
+        Double latitude = coords.getDouble(1);
+        Double longitude = coords.getDouble(0);
+        return heuristicService.bestPark(latitude, longitude, radius, period);
     }
 
     public ParkResponse getParksByCoordinates(Double pointLatitude, Double pointLongitude, double radius) {
