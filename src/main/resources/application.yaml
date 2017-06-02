@@ -14,6 +14,7 @@ park:
   list: list
   coordinates: coordinates
   best: best
+  directions: directions
 
 mapbox:
   token: pk.eyJ1IjoicGF1bG9zYW50b3NwaHMiLCJhIjoiY2oxN3k5NHhzMDZvdzJ3bXo5Nzh5ZGZlNCJ9.SjLN3Nwnqq0VnByM3f6wKQ

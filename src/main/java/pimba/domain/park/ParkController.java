@@ -71,4 +71,16 @@ public class ParkController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "${park.directions}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getDirections(@RequestParam Integer parkId, Double userLatitude, Double userLongitude) throws Exception {
+        if (parkId == null || userLatitude == null || userLongitude == null) {
+            return ResponseEntity.badRequest().body(null);
+        } else {
+            return ResponseEntity.ok(parkService.getDirections(parkId, userLatitude, userLongitude).toString());
+        }
+    }
+
 }

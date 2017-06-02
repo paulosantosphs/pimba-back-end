@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pimba.domain.park.heuristic.HeuristicService;
 import pimba.domain.park.rate.RatePeriod;
+import pimba.exceptions.DirectionsException;
 import pimba.exceptions.InvalidParkException;
 import pimba.exceptions.LocationException;
 
@@ -114,6 +115,27 @@ public class ParkService {
         } catch (JSONException | IOException e) {
             throw new LocationException(e.getMessage());
         }
+    }
+
+    public JSONObject getDirections(Integer parkId, Double userLatitude, Double userLongitude) throws Exception {
+        Park park = parkRepository.findById(parkId).orElseThrow(() -> new InvalidParkException("Parking not found"));
+        Double parkLatitude = park.getAddress().getLatitude();
+        Double parkLongitude = park.getAddress().getLongitude();
+        if (parkLatitude == null || parkLongitude == null) {
+            throw new Exception("Parking without latitude or longitude");
+        }
+        String origin = userLatitude + "," + userLongitude;
+        String destination = parkLatitude + "," + parkLongitude;
+        String url = "https://maps.googleapis.com/maps/api/directions/json?units=metric&language=pt-BR&origin=" + origin + "&destination=" + destination;
+        try {
+            URL request = new URL(url);
+            JSONTokener tokener = new JSONTokener(request.openStream());
+            JSONObject obj = new JSONObject(tokener);
+            return obj;
+        } catch (JSONException | IOException e) {
+            throw new DirectionsException(e.getMessage());
+        }
+
     }
 
     public String createDestinationsQuery(List<Park> parks) {

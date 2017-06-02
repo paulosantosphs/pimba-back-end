@@ -18,6 +18,8 @@ public class RouteParkProperties {
 
     private String best;
 
+    private String directions;
+
     public RouteParkProperties() {
     }
 
@@ -51,5 +53,13 @@ public class RouteParkProperties {
 
     public void setBase(String base) {
         this.base = base;
+    }
+
+    public String getDirections() {
+        return directions;
+    }
+
+    public void setDirections(String directions) {
+        this.directions = directions;
     }
 }
