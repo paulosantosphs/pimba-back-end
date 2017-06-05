@@ -103,14 +103,6 @@ public class ParkServiceTest {
         Assert.assertEquals(park2, parkDistance2);
         Assert.assertEquals(park3, parkDistance3);
 
-        Integer time1 = distances.get(0).getTime();
-        Integer time2 = distances.get(1).getTime();
-        Integer time3 = distances.get(2).getTime();
-
-        Assert.assertEquals(time1.intValue(), 1730);
-        Assert.assertEquals(time2.intValue(), 3462);
-        Assert.assertEquals(time3.intValue(), 2293);
-
         Integer distance1 = distances.get(0).getDistance();
         Integer distance2 = distances.get(1).getDistance();
         Integer distance3 = distances.get(2).getDistance();
