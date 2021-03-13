@@ -1,34 +1,6 @@
-## Pimba back-end projeto principal
-Webservice para aplicação mobile e aplicação web
+## Pimba back-end
+Pimba was a Brazilian Startup created in September 2016. An MVP app was built and it allowed users to find the best parking slot. The startup had some problems and in August 2017 and the project finished.
 
-### Boas práticas de projeto
-Recomendado que as estruturas, váriaveis e métodos sejam denominados em inglês, para facilitar a integração com o framework.  
-A estrutura de projeto está organizada em MVC, onde cada package contém tanto o model, quanto o view e o controller.  
-Ex:
-```
-projeto/
-	login/
-		Login.java
-		LoginResponse.java
-		LoginRepository.java
-		LoginController.java
-		LoginService.java
-```
-### Uso
-- Rode a aplicação e acesse http://localhost:8080
+This back-end project was built in Java with Spring.
 
-### Compilação e execução
-Abra a pasta do projeto e execute:
-
-	$ mvn package compile
-
-### Atualizacão do repositório
-Para adicionar os arquivos ao repositório:
-
-	$ git add .
-	$ git commit -m "Mensagem informando as alteracoes que voce fez"
-	$ git push origin master
-
-Para baixar as atualizações do projeto:
-
-	$ git pull origin master
+Images: https://www.behance.net/gallery/58565841/PIMBA-Aplicativo-de-Estacionamento
